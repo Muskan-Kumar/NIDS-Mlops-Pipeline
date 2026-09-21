@@ -46,7 +46,11 @@ templates=Jinja2Templates(directory="./templates")
 
 @app.get("/",tags=["authentication"])
 async def index(request:Request):
-    return templates.TemplateResponse("index.html",{"request":request})
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"request":request}
+    )
 
 @app.get("/train")
 async def train_route():
@@ -78,8 +82,9 @@ async def predict_route(request:Request,file:UploadFile=File(...)):
         table_html=df.to_html(classes="table table-striped",index=False)
 
         return templates.TemplateResponse(
-            "table.html",
-            {
+            request=request,
+            name="table.html",
+            context={
                 "request":request,
                 "table":table_html
             }
@@ -91,4 +96,3 @@ async def predict_route(request:Request,file:UploadFile=File(...)):
 if __name__=="__main__":
     app_run(app,host="0.0.0.0",port=8000)
 
-    

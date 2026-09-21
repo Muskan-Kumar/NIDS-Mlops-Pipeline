@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.git/
+.github/
+.env
+Artifacts/
+Network_Data/nids.csv
+prediction_output/
+mlruns/
