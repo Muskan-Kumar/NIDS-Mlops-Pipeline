@@ -15,7 +15,7 @@ from fastapi import FastAPI,File,UploadFile,Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from fastapi.templating import Jinja2Templates
-from starlette.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from uvicorn import run as app_run
 
 from networksecurity.exception.exception import NetworkSecurityException
@@ -29,6 +29,9 @@ database=client[DATA_INGESTION_DATABASE_NAME]
 collection=database[DATA_INGESTION_COLLECTION_NAME]
 
 app=FastAPI()
+
+app.mount("/static",StaticFiles(directory="static"),name="static")
+
 origins=["*"]
 
 app.add_middleware(
@@ -42,8 +45,8 @@ app.add_middleware(
 templates=Jinja2Templates(directory="./templates")
 
 @app.get("/",tags=["authentication"])
-async def index():
-    return RedirectResponse(url="/docs")
+async def index(request:Request):
+    return templates.TemplateResponse("index.html",{"request":request})
 
 @app.get("/train")
 async def train_route():
@@ -86,6 +89,6 @@ async def predict_route(request:Request,file:UploadFile=File(...)):
         raise NetworkSecurityException(e,sys)
 
 if __name__=="__main__":
-    app_run(app,host="localhost",port=8000)
+    app_run(app,host="0.0.0.0",port=8000)
 
     

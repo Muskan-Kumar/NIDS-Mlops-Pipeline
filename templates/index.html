@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NIDS - Network Intrusion Detection System">
+    <title>NIDS | Network Intrusion Detection System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">
+                <span>◈</span>
+            </div>
+            <div>
+                <h1>NIDS</h1>
+                <p>Security Intelligence</p>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="#dashboard" class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#analyze" class="nav-item">
+                <span class="nav-icon">◉</span>
+                <span>Traffic Analysis</span>
+            </a>
+            <a href="#results" class="nav-item">
+                <span class="nav-icon">▣</span>
+                <span>Results</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>System Online</strong>
+                    <small>Detection engine ready</small>
+                </div>
+            </div>
+            <div class="version">NIDS v1.0.0</div>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">NETWORK SECURITY</p>
+                <h2>Intrusion Detection Center</h2>
+            </div>
+
+            <div class="topbar-right">
+                <div class="api-status" id="apiStatus">
+                    <span class="status-dot"></span>
+                    <span>API Connected</span>
+                </div>
+                <div class="avatar">N</div>
+            </div>
+        </header>
+
+        <section class="hero" id="dashboard">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="pulse"></span>
+                    AI-Powered Detection
+                </div>
+
+                <h3>Detect malicious network traffic<br><span>before it becomes a threat.</span></h3>
+
+                <p>
+                    Upload your network traffic dataset and let the trained
+                    machine learning model identify suspicious activity.
+                </p>
+
+                <a href="#analyze" class="primary-btn">
+                    Start Analysis
+                    <span>→</span>
+                </a>
+            </div>
+
+            <div class="hero-visual">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <div class="radar">
+                    <div class="radar-line"></div>
+                    <div class="radar-center"></div>
+                </div>
+                <div class="radar-label label-top">NETWORK</div>
+                <div class="radar-label label-right">SECURE</div>
+                <div class="radar-label label-bottom">MONITORING</div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">◉</div>
+                <div>
+                    <span>Detection Engine</span>
+                    <strong>ML Powered</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">◆</div>
+                <div>
+                    <span>Traffic Classes</span>
+                    <strong>3 Classes</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">✓</div>
+                <div>
+                    <span>API Status</span>
+                    <strong id="apiCardStatus">Online</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div>
+                    <span>Inference</span>
+                    <strong>Real-time</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="analysis-section" id="analyze">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">TRAFFIC ANALYSIS</p>
+                    <h3>Analyze Network Traffic</h3>
+                    <p>Upload a CSV file containing network flow features.</p>
+                </div>
+            </div>
+
+            <div class="analysis-grid">
+
+                <div class="upload-card">
+
+                    <div class="card-header">
+                        <div>
+                            <h4>Upload Dataset</h4>
+                            <p>CSV files only</p>
+                        </div>
+                        <span class="file-type">CSV</span>
+                    </div>
+
+                    <div class="drop-zone" id="dropZone">
+                        <input type="file" id="fileInput" accept=".csv,text/csv" hidden>
+
+                        <div class="upload-icon">
+                            ↑
+                        </div>
+
+                        <h4>Drop your CSV file here</h4>
+                        <p>or click to browse from your computer</p>
+
+                        <button class="browse-btn" id="browseBtn" type="button">
+                            Choose File
+                        </button>
+
+                        <small>Maximum recommended size: 100 MB</small>
+                    </div>
+
+                    <div class="selected-file" id="selectedFile">
+                        <div class="file-icon">CSV</div>
+                        <div class="file-info">
+                            <strong id="fileName">filename.csv</strong>
+                            <span id="fileSize">0 KB</span>
+                        </div>
+                        <button id="removeFile" class="remove-btn" type="button">×</button>
+                    </div>
+
+                    <button class="analyze-btn" id="analyzeBtn" type="button" disabled>
+                        <span class="btn-text">Analyze Traffic</span>
+                        <span class="spinner"></span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+
+                    <p class="upload-error" id="uploadError"></p>
+
+                </div>
+
+                <div class="model-card">
+                    <div class="card-header">
+                        <div>
+                            <h4>Detection Model</h4>
+                            <p>Active inference configuration</p>
+                        </div>
+                        <span class="model-live">LIVE</span>
+                    </div>
+
+                    <div class="model-info">
+                        <div class="model-logo">ML</div>
+                        <div>
+                            <strong>Network Intrusion Classifier</strong>
+                            <span>Supervised Machine Learning</span>
+                        </div>
+                    </div>
+
+                    <div class="model-details">
+                        <div>
+                            <span>Model Type</span>
+                            <strong>Classification</strong>
+                        </div>
+                        <div>
+                            <span>Input</span>
+                            <strong>Network Flow</strong>
+                        </div>
+                        <div>
+                            <span>Output</span>
+                            <strong>3 Classes</strong>
+                        </div>
+                        <div>
+                            <span>Endpoint</span>
+                            <strong>/predict</strong>
+                        </div>
+                    </div>
+
+                    <div class="class-list">
+                        <p>Detection classes</p>
+
+                        <div class="class-item">
+                            <span class="class-dot benign"></span>
+                            <span>Benign</span>
+                            <small>Normal traffic</small>
+                        </div>
+
+                        <div class="class-item">
+                            <span class="class-dot danger"></span>
+                            <span>FTP-BruteForce</span>
+                            <small>Attack traffic</small>
+                        </div>
+
+                        <div class="class-item">
+                            <span class="class-dot warning"></span>
+                            <span>SSH-Bruteforce</span>
+                            <small>Attack traffic</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="results-section" id="results">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">ANALYSIS RESULTS</p>
+                    <h3>Detection Results</h3>
+                    <p>Results from the latest network traffic analysis.</p>
+                </div>
+
+                <button class="secondary-btn" id="clearResults" type="button">
+                    Clear Results
+                </button>
+            </div>
+
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">⌁</div>
+                <h4>No analysis available</h4>
+                <p>Upload a network traffic CSV file to start detection.</p>
+            </div>
+
+            <div class="results-container" id="resultsContainer">
+
+                <div class="result-summary">
+
+                    <div class="result-main" id="overallResult">
+                        <div class="result-symbol">✓</div>
+                        <div>
+                            <span>Detection Status</span>
+                            <h4 id="resultTitle">Analysis Complete</h4>
+                            <p id="resultDescription">Network traffic has been analyzed.</p>
+                        </div>
+                    </div>
+
+                    <div class="result-metrics">
+                        <div>
+                            <span>Total Records</span>
+                            <strong id="totalRecords">0</strong>
+                        </div>
+                        <div>
+                            <span>Benign</span>
+                            <strong id="benignCount">0</strong>
+                        </div>
+                        <div>
+                            <span>Threats</span>
+                            <strong id="threatCount">0</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <h4>Prediction Details</h4>
+                            <p>Classification output generated by the ML model.</p>
+                        </div>
+                        <span class="result-badge" id="resultBadge">COMPLETED</span>
+                    </div>
+
+                    <div class="table-wrapper" id="predictionTable">
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer>
+            <span>© 2026 NIDS Security Intelligence</span>
+            <span>Machine Learning • FastAPI • MLOps</span>
+        </footer>
+
+    </main>
+</div>
+
+<div class="toast" id="toast">
+    <span id="toastMessage"></span>
+</div>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>
+
