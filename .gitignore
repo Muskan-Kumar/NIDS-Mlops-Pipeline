@@ -4,10 +4,17 @@ __pycache__/
 build/
 dist/
 wheels/
-*.egg-info
+*.egg-info/
 
 # Virtual environments
-.venv
+.venv/
 .env
 
+# Dataset
 Network_Data/nids.csv
+
+# ML artifacts
+final_model/
+Artifacts/
+prediction_output/
+mlruns/
